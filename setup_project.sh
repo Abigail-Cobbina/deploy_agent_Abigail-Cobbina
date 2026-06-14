@@ -2,8 +2,18 @@
 # This script automates the setup of a Student Attendance Tracker project
 
 read -p "Enter project name: " input
-
 project_dir="attendance_tracker_${input}"
+
+# Handle Ctrl+C signal
+cleanup() {
+    echo "Script interrupted! Cleaning up..."
+    tar -czf "${project_dir}_archive.tar.gz" "$project_dir"
+    rm -rf "$project_dir"
+    echo "Archive created: ${project_dir}_archive.tar.gz"
+    exit 1
+}
+
+trap cleanup SIGINT
 
 mkdir -p "$project_dir/Helpers"
 mkdir -p "$project_dir/reports"
