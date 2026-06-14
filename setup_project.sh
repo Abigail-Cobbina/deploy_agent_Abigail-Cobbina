@@ -14,3 +14,14 @@ touch "$project_dir/Helpers/config.json"
 touch "$project_dir/reports/reports.log"
 
 echo "Project directory created successfully!"
+
+# Ask the user if they want to update thresholds
+read -p "Do you want to update attendance thresholds? (yes/no): " answer
+
+if [ "$answer" = "yes" ]; then
+    read -p "Enter new Warning threshold (default 75): " warning
+    read -p "Enter new Failure threshold (default 50): " failure
+    sed -i "s/\"warning\": 75/\"warning\": $warning/" "$project_dir/Helpers/config.json"
+    sed -i "s/\"failure\": 50/\"failure\": $failure/" "$project_dir/Helpers/config.json"
+    echo "Thresholds updated successfully!"
+fi
