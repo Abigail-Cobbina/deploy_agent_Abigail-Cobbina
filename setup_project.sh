@@ -91,3 +91,10 @@ if [ "$answer" = "yes" ]; then
     sed -i "s/\"failure\": 50/\"failure\": $failure/" "$project_dir/Helpers/config.json"
     echo "Thresholds updated successfully!"
 fi
+
+# Environment validation - check if python3 is installed
+if python3 --version 2>/dev/null; then
+    echo "Python3 is installed. Environment is ready!"
+else
+    echo "Warning: Python3 is not installed. Please install it to run the application."
+fi
