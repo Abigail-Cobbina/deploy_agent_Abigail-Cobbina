@@ -3,6 +3,10 @@
 
 read -p "Enter project name: " input
 project_dir="attendance_tracker_${input}"
+if [ -d "$project_dir" ]; then
+    echo "Error: Directory $project_dir already exists!"
+    exit 1
+fi
 
 # Handle Ctrl+C signal
 cleanup() {
@@ -83,13 +87,16 @@ echo "Project directory created successfully!"
 
 # Ask the user if they want to update thresholds
 read -p "Do you want to update attendance thresholds? (yes/no): " answer
-
 if [ "$answer" = "yes" ]; then
     read -p "Enter new Warning threshold (default 75): " warning
     read -p "Enter new Failure threshold (default 50): " failure
-    sed -i "s/\"warning\": 75/\"warning\": $warning/" "$project_dir/Helpers/config.json"
-    sed -i "s/\"failure\": 50/\"failure\": $failure/" "$project_dir/Helpers/config.json"
-    echo "Thresholds updated successfully!"
+    if ! [[ "$warning" =~ ^[0-9]+$ ]] || ! [[ "$failure" =~ ^[0-9]+$ ]]; then
+        echo "Invalid input! Thresholds must be numbers. Keeping default values."
+    else
+        sed -i "s/\"warning\": 75/\"warning\": $warning/" "$project_dir/Helpers/config.json"
+        sed -i "s/\"failure\": 50/\"failure\": $failure/" "$project_dir/Helpers/config.json"
+        echo "Thresholds updated successfully!"
+    fi
 fi
 
 # Environment validation - check if python3 is installed
