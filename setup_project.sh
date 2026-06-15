@@ -7,9 +7,9 @@ project_dir="attendance_tracker_${input}"
 # Handle Ctrl+C signal
 cleanup() {
     echo "Script interrupted! Cleaning up..."
-    tar -czf "${project_dir}_archive.tar.gz" "$project_dir"
+    tar -czf "${project_dir}_archive" "$project_dir"
     rm -rf "$project_dir"
-    echo "Archive created: ${project_dir}_archive.tar.gz"
+    echo "Archive created: ${project_dir}_archive"
     exit 1
 }
 
