@@ -42,3 +42,7 @@ The script includes a signal trap that handles user interruptions. To test this 
 
 This helps keep the workspace clean if the setup process is interrupted before completion.
 
+## Video Walkthrough
+
+Here is a link to my project demonstration video:
+https://drive.google.com/file/d/1ysunsXtipNimmvTscwphrNc3bNCEu-o6/view?usp=sharing
